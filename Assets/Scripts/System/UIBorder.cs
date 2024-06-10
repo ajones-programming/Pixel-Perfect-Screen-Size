@@ -13,8 +13,6 @@ namespace Project.Camera
         [SerializeField] Image borderBottom;
         [SerializeField] Image borderLeft;
         [SerializeField] Image borderRight;
-
-        [SerializeField] RawImage renderTexture;
         // Start is called before the first frame update
         void Start()
         {
@@ -25,8 +23,6 @@ namespace Project.Camera
         {
             Vector2 size = new Vector2(PixelPerfectScreenSize.PixelScreenWidth * PixelPerfectScreenSize.UnitFactor,
                  PixelPerfectScreenSize.PixelScreenHeight * PixelPerfectScreenSize.UnitFactor);
-
-            renderTexture.rectTransform.sizeDelta = size;
 
             borderLeft.rectTransform.sizeDelta = new Vector2((Screen.width - size.x) / 2f, Screen.height);
             borderLeft.rectTransform.transform.position = new Vector2(0,0);

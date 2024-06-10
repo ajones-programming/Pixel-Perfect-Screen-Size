@@ -17,13 +17,9 @@ namespace Project.Camera
     [RequireComponent(typeof(UnityEngine.Camera))]
     public class PixelPerfectCamera : MonoBehaviour
     {
-
+        [SerializeField] bool crop = false;
         void Awake()
         {
-
-            //if using URP??
-            //else
-
             PixelPerf pxpc = gameObject.AddComponent<PixelPerf>();
             pxpc.stretchFill = false;
             pxpc.cropFrameY = true;
@@ -33,6 +29,8 @@ namespace Project.Camera
             pxpc.pixelSnapping = true;
             pxpc.upscaleRT = true;
             pxpc.assetsPPU = PixelPerfectSize.PixelsPerUnit;
+            pxpc.cropFrameX = crop;
+            pxpc.cropFrameY = crop;
 
         }
     }
