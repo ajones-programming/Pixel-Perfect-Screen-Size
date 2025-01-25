@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8679076265084679777}
   m_Layer: 0
-  m_Name: Cameras
+  m_Name: Pixel Perfect All Cameras
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8679076265978766007}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.20005512, y: 1.4406393, z: -100.42578}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8679076265564475435}

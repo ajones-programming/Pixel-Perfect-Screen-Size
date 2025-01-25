@@ -17,40 +17,21 @@ namespace DEMOONLY
         }
 
         [SerializeField] Text text;
-        [SerializeField]
-        List<ExampleTextStruct> allText =
-            new List<ExampleTextStruct>();
+        [SerializeField] List<ExampleTextStruct> allText = new List<ExampleTextStruct>();
 
-        // Start is called before the first frame update
-
-        private void Awake()
-        {
-            ScreenSizeChange.onScreenSizeChange += ChooseText;
-        }
-
-        void Start()
-        {
-            ChooseText();
-        }
-
-        private void OnDestroy()
-        {
-            ScreenSizeChange.onScreenSizeChange -= ChooseText;
-        }
-
-        void ChooseText()
+        public void ChooseText(PixelPerfectScreenSize.Information size)
         {
             string exampleString = "";
             foreach (var a in allText)
             {
-                if (a.size == PixelPerfectScreenSize.size)
+                if (a.size == size.size)
                 {
                     
                     exampleString = a.text;
                     break;
                 }
             }
-            text.text = $"Width: {PixelPerfectScreenSize.PixelScreenWidth}\nHeight: {PixelPerfectScreenSize.PixelScreenHeight}\n{exampleString}";
+            text.text = $"Width: {size.PixelScreenWidth}\nHeight: {size.PixelScreenHeight}\n{exampleString}";
         }
 
     }

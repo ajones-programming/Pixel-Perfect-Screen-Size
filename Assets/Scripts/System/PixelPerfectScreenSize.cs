@@ -1,14 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Project.System
 {
-
-    //compares the window screen size to a set of predefined 
-    public class PixelPerfectScreenSize
+    public class PixelPerfectScreenSize : MonoBehaviour
     {
         
+        Vector2Int screenSizes;
+
         public enum SIZES
         {
             ERROR,
@@ -27,42 +29,66 @@ namespace Project.System
             new Vector2Int(300,300)
         };
 
-        //this will initialise if any instance variables are requested
-        static PixelPerfectScreenSize instance = new PixelPerfectScreenSize();
 
-        SIZES _size;
-        int _factor = 0;
+        #region VALUES
+
         public const int PixelsPerUnit = 32;
 
+        SIZES size;
+        int factor = 0;
+
+
         //how many units high is the screen???
+        int PixelScreenHeight => allSizes[(int)size].y;
+        int PixelScreenWidth => allSizes[(int)size].x;
+
+        float UnitScreenWidth => (PixelsPerUnit > 0) ? PixelScreenWidth / (float)PixelsPerUnit : 0;
+        float UnitScreenHeight => (PixelsPerUnit > 0) ? PixelScreenHeight / (float)PixelsPerUnit : 0;
+
+        Vector2 PixelScreenSize => new Vector2(PixelScreenWidth, PixelScreenHeight);
 
 
-        public static SIZES size => instance._size;
-        public static int PixelScreenHeight => instance.allSizes[(int)instance._size].y;
-        public static int PixelScreenWidth => instance.allSizes[(int)instance._size].x;
+        public struct Information {
 
-        public static float UnitScreenWidth => (PixelsPerUnit > 0) ? PixelScreenWidth / (float)PixelsPerUnit : 0;
-        public static float UnitScreenHeight => (PixelsPerUnit > 0) ? PixelScreenHeight / (float)PixelsPerUnit : 0;
+            public SIZES size;
+            public int PixelsPerUnit;
+            public int PixelScreenHeight;
+            public int PixelScreenWidth;
+            public float UnitScreenWidth;
+            public float UnitScreenHeight;
+            public Vector2 PixelScreenSize;
+            public int UnitFactor;
 
-        public static Vector2 PixelScreenSize => new Vector2(PixelScreenWidth, PixelScreenHeight);
-
-        public static int UnitFactor => instance._factor;
-
-        PixelPerfectScreenSize()
-        {
-            cycleThroughAllSizes();
+            public bool isEqual(SIZES size, int UnitFactor) => this.size == size && this.UnitFactor == UnitFactor;
         }
 
-        public static void ChooseSize() => instance.cycleThroughAllSizes();
+        private Information info =>
+            new Information()
+            {
+                size = size,
+                PixelsPerUnit = PixelsPerUnit,
+                PixelScreenHeight = PixelScreenHeight,
+                PixelScreenWidth = PixelScreenWidth,
 
-        void cycleThroughAllSizes()
+                UnitScreenWidth = UnitScreenWidth,
+                UnitScreenHeight = UnitScreenHeight,
+
+                PixelScreenSize = PixelScreenSize,
+                UnitFactor = factor
+
+            };
+
+        UnityAction<Information> onScreenSizeChange;
+
+        #endregion
+
+        #region CALCULATION
+        void CheckScreenSize()
         {
             int currentIteratedSize = 0;
-
-            for(int i = 1; i < allSizes.Count; ++i)
+            for (int i = 1; i < allSizes.Count; ++i)
             {
-
-                if (greaterScreenArea(allSizes[i],allSizes[currentIteratedSize]))
+                if (greaterScreenArea(allSizes[i], allSizes[currentIteratedSize]))
                 {
                     currentIteratedSize = i;
 
@@ -72,8 +98,8 @@ namespace Project.System
             {
                 Debug.LogError("HAS A RATIO OF ZERO! THIS IS BAD!");
             }
-            _size = (SIZES)currentIteratedSize;
-            _factor = Mathf.Min(Screen.width / allSizes[currentIteratedSize].x, Screen.height/ allSizes[currentIteratedSize].y);
+            size = (SIZES)currentIteratedSize;
+            factor = Mathf.Min(Screen.width / allSizes[currentIteratedSize].x, Screen.height / allSizes[currentIteratedSize].y);
         }
 
         bool greaterScreenArea(Vector2Int thisSize, Vector2Int currentSize)
@@ -98,7 +124,7 @@ namespace Project.System
             {
                 return 0f;
             }
-            int sizeRatio = Mathf.Min(Screen.height / size.y, Screen.width/size.x);
+            int sizeRatio = Mathf.Min(Screen.height / size.y, Screen.width / size.x);
             if (sizeRatio == 0)
             {
                 return 0f;
@@ -106,6 +132,59 @@ namespace Project.System
             float ratio = (float)(sizeRatio * size.x) / Screen.height * (sizeRatio * size.y) / Screen.width;
             return ratio;
         }
+
+        #endregion
+
+        #region ACTIONS
+
+        public void AddAction(UnityEvent<Information> unityEvent)
+        {
+            onScreenSizeChange += unityEvent.Invoke;
+            unityEvent.Invoke(info);
+        }
+        public void AddAction(Action<Information> unityEvent)
+        {
+            onScreenSizeChange += unityEvent.Invoke;
+            unityEvent.Invoke(info);
+        }
+
+        public void RemoveAction(UnityEvent<Information> unityEvent)
+        {
+            onScreenSizeChange -= unityEvent.Invoke;
+        }
+
+        public void RemoveAction(Action<Information> unityEvent)
+        {
+            onScreenSizeChange -= unityEvent.Invoke;
+        }
+
+        #endregion
+
+        private void Awake()
+        {
+            screenSizes = new Vector2Int(Screen.width, Screen.height);
+            CheckScreenSize();
+        }
+
+        private void Update()
+        {
+            if (!screenSizes.Equals(new Vector2Int(Screen.width, Screen.height)))
+            {
+                SIZES previousScreenSize = size;
+                int previousUnitFactor = factor;
+                CheckScreenSize();
+
+                if (previousScreenSize != size || previousUnitFactor != factor)
+                {
+                    onScreenSizeChange?.Invoke(info);
+                    screenSizes = new Vector2Int(Screen.width, Screen.height);
+                }
+                
+            }
+        }
     }
 
+
+
 }
+

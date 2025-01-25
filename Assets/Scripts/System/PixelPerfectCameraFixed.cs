@@ -13,11 +13,32 @@ namespace Project.System
     public class PixelPerfectCameraFixed : PixelPerf
     {
         UnityEngine.Camera m_Camera;
+        public PixelPerfectScreenSize size;
+        public PixelPerfectScreenSize.Information info;
 
         private void Start()
         {
-            m_Camera = GetComponent<UnityEngine.Camera>();
+            m_Camera = GetComponent<UnityEngine.Camera>();   
         }
+
+        public void AddSize(PixelPerfectScreenSize size)
+        {
+            this.size = size;
+            size.AddAction(SetThisInfo);
+        }
+
+
+        private void OnDestroy()
+        {
+            size.RemoveAction(SetThisInfo);
+        }
+
+        private void SetThisInfo(PixelPerfectScreenSize.Information info)
+        {
+            this.info = info;
+        }
+
+
 
         private void OnPostRender()
         {
@@ -30,8 +51,8 @@ namespace Project.System
             }
 
             Rect result = default;
-            result.height = PixelPerfectScreenSize.UnitFactor * PixelPerfectScreenSize.PixelScreenHeight;
-            result.width = PixelPerfectScreenSize.UnitFactor * PixelPerfectScreenSize.PixelScreenWidth;
+            result.height = info.UnitFactor * info.PixelScreenHeight;
+            result.width = info.UnitFactor * info.PixelScreenWidth;
             result.x = (Screen.width - (int)result.width) / 2;
             result.y = (Screen.height - (int)result.height) / 2;
 

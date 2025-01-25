@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using Project.System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Project.Camera
 {
@@ -12,38 +14,41 @@ namespace Project.Camera
 //    using PixelPerf = UnityEngine.U2D.PixelPerfectCamera; 
 //#endif
 
-    using PixelPerfectSize = System.PixelPerfectScreenSize;
    
 
     [RequireComponent(typeof(UnityEngine.Camera))]
     public class PixelPerfectCamera : MonoBehaviour
     {
         [SerializeField] bool crop = false;
+        [SerializeField] PixelPerfectScreenSize screenSize;
         System.PixelPerfectCameraFixed pxpc = null;
 
-        void Awake()
+
+        private void Start()
         {
-            ScreenSizeChange();
-            System.ScreenSizeChange.onScreenSizeChange += ScreenSizeChange;
+            screenSize.AddAction(onScreenSizeChange);
         }
 
         private void OnDestroy()
         {
-            System.ScreenSizeChange.onScreenSizeChange -= ScreenSizeChange;
+            screenSize.RemoveAction(onScreenSizeChange);
+
         }
 
-        void ScreenSizeChange()
+
+        void onScreenSizeChange(PixelPerfectScreenSize.Information screensize)
         {
             if (pxpc == null)
             {
                 pxpc = gameObject.AddComponent<System.PixelPerfectCameraFixed>();
+                pxpc.AddSize(screenSize);
             }
             pxpc.stretchFill = false;
-            pxpc.refResolutionX = PixelPerfectSize.PixelScreenWidth;
-            pxpc.refResolutionY = PixelPerfectSize.PixelScreenHeight;
+            pxpc.refResolutionX = screensize.PixelScreenWidth;
+            pxpc.refResolutionY = screensize.PixelScreenHeight;
             pxpc.pixelSnapping = true;
             pxpc.upscaleRT = true;
-            pxpc.assetsPPU = PixelPerfectSize.PixelsPerUnit;
+            pxpc.assetsPPU = screensize.PixelsPerUnit;
             pxpc.cropFrameX = crop;
             pxpc.cropFrameY = crop;
 
