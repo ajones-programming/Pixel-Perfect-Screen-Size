@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4670735754506617028}
   - component: {fileID: 4670735754506617031}
   m_Layer: 0
-  m_Name: UI Camera
+  m_Name: Pixel Perfect UI Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4670735754506617030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e5712fbab9ebb4dbada8fe4a2d31bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 97c0969aa0872be41a4394564eafaeca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   crop: 1
+  screenSize: {fileID: 0}
