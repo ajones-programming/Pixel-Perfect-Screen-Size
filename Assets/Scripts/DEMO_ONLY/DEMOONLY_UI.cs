@@ -1,32 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using Project.System;
 using UnityEngine.UI;
+
+using PixelPerfect;
 
 namespace DEMOONLY
 {
-    public class DEMOONLY_UI : MonoBehaviour
+    public class DEMOONLY_UI : PixelPerfectObject
     {
         [System.Serializable]
         public struct ExampleTextStruct
         {
-            public PixelPerfectScreenSize.SIZES size;
+            public Vector2Int sizeVec;
             public string text;
         }
 
         [SerializeField] Text text;
         [SerializeField] List<ExampleTextStruct> allText = new List<ExampleTextStruct>();
 
+        public override void onScreenSizeChange(PixelPerfectScreenSize.Information info) => ChooseText(info);
         public void ChooseText(PixelPerfectScreenSize.Information size)
         {
             string exampleString = "";
             foreach (var a in allText)
             {
-                if (a.size == size.size)
+                if (a.sizeVec.Equals(size.PixelScreenSize))
                 {
-                    
                     exampleString = a.text;
                     break;
                 }

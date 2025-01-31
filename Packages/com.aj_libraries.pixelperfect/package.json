@@ -1,0 +1,12 @@
+{
+    "name": "com.aj_libraries.pixelperfect",
+    "version": "0.1.0",
+    "description": "Add to projects for a pixel perfect package. Makes use of the existing pixel perfect, and improves on it",
+    "displayName": "AJ Libraries Pixel Perfect",
+    "unity": "2020.1",
+    "author": {
+        "name": "Anna Jones",
+        "email": "ajones.programming@gmail.com"
+    }
+
+}

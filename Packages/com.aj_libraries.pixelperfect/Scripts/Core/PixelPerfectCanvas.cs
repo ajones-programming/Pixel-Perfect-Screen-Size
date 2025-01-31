@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Project.Camera
+namespace PixelPerfect
 {
-    using System;
     public class PixelPerfectCanvas : MonoBehaviour
     {
         [SerializeField] PixelPerfectScreenSize screenSize;

@@ -1,27 +1,19 @@
-﻿using Project.System;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Project.Camera
+namespace PixelPerfect
 {
-//    using System;
-//#if UNIVERSAL_RENDER_PIPELINE
-//    using PixelPerf =  UnityEngine.Experimental.Rendering.Universal.PixelPerfectCamera;
-//#else
-//    using PixelPerf = UnityEngine.U2D.PixelPerfectCamera; 
-//#endif
-
-   
 
     [RequireComponent(typeof(UnityEngine.Camera))]
     public class PixelPerfectCamera : MonoBehaviour
     {
         [SerializeField] bool crop = false;
         [SerializeField] PixelPerfectScreenSize screenSize;
-        System.PixelPerfectCameraFixed pxpc = null;
+        PixelPerfectCameraFixed pxpc = null;
 
 
         private void Start()
@@ -40,7 +32,7 @@ namespace Project.Camera
         {
             if (pxpc == null)
             {
-                pxpc = gameObject.AddComponent<System.PixelPerfectCameraFixed>();
+                pxpc = gameObject.AddComponent<PixelPerfectCameraFixed>();
                 pxpc.AddSize(screenSize);
             }
             pxpc.stretchFill = false;

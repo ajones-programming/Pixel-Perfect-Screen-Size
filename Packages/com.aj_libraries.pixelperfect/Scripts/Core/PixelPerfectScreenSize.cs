@@ -4,23 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Project.System
+namespace PixelPerfect
 {
     public class PixelPerfectScreenSize : MonoBehaviour
     {
         
         Vector2Int screenSizes;
 
-        public enum SIZES
-        {
-            ERROR,
-            _360X250,
-            _360X350,
-            _200X400,
-            _300X300
-        };
-
-        List<Vector2Int> allSizes = new List<Vector2Int>()
+        public List<Vector2Int> allSizes = new List<Vector2Int>()
         {
             new Vector2Int( 0,0), //error size
             new Vector2Int(360,250),
@@ -29,12 +20,14 @@ namespace Project.System
             new Vector2Int(300,300)
         };
 
+        public int PixelsPerUnit = 32;
+
 
         #region VALUES
 
-        public const int PixelsPerUnit = 32;
 
-        SIZES size;
+
+        int size;
         int factor = 0;
 
 
@@ -45,12 +38,12 @@ namespace Project.System
         float UnitScreenWidth => (PixelsPerUnit > 0) ? PixelScreenWidth / (float)PixelsPerUnit : 0;
         float UnitScreenHeight => (PixelsPerUnit > 0) ? PixelScreenHeight / (float)PixelsPerUnit : 0;
 
-        Vector2 PixelScreenSize => new Vector2(PixelScreenWidth, PixelScreenHeight);
+        Vector2Int PixelScreenSize => allSizes[(int)size];
 
 
         public struct Information {
 
-            public SIZES size;
+            public int size;
             public int PixelsPerUnit;
             public int PixelScreenHeight;
             public int PixelScreenWidth;
@@ -59,7 +52,7 @@ namespace Project.System
             public Vector2 PixelScreenSize;
             public int UnitFactor;
 
-            public bool isEqual(SIZES size, int UnitFactor) => this.size == size && this.UnitFactor == UnitFactor;
+            public bool isEqual(int size, int UnitFactor) => this.size == size && this.UnitFactor == UnitFactor;
         }
 
         private Information info =>
@@ -98,7 +91,7 @@ namespace Project.System
             {
                 Debug.LogError("HAS A RATIO OF ZERO! THIS IS BAD!");
             }
-            size = (SIZES)currentIteratedSize;
+            size = currentIteratedSize;
             factor = Mathf.Min(Screen.width / allSizes[currentIteratedSize].x, Screen.height / allSizes[currentIteratedSize].y);
         }
 
@@ -170,7 +163,7 @@ namespace Project.System
         {
             if (!screenSizes.Equals(new Vector2Int(Screen.width, Screen.height)))
             {
-                SIZES previousScreenSize = size;
+                int previousScreenSize = size;
                 int previousUnitFactor = factor;
                 CheckScreenSize();
 

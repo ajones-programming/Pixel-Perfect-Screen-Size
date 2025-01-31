@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-using System;
 #if UNIVERSAL_RENDER_PIPELINE
     using PixelPerf =  UnityEngine.Experimental.Rendering.Universal.PixelPerfectCamera;
 #else
@@ -8,7 +7,7 @@ using PixelPerf = UnityEngine.U2D.PixelPerfectCamera;
 using UnityEngine.U2D;
 #endif
 
-namespace Project.System
+namespace PixelPerfect
 {
     public class PixelPerfectCameraFixed : PixelPerf
     {

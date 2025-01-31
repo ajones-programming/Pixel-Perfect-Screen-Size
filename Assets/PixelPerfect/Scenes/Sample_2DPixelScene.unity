@@ -156,10 +156,10 @@ RectTransform:
   m_Father: {fileID: 494783538}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.63000005}
+  m_AnchorMin: {x: 0, y: 0.6}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.100006, y: -7.9000015}
-  m_SizeDelta: {x: -15.83194, y: -15.890953}
+  m_AnchoredPosition: {x: -2, y: -3.375}
+  m_SizeDelta: {x: -15.83194, y: -24.890953}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &118710067
 MonoBehaviour:
@@ -501,7 +501,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.018347764, y: 0.0908313}
   m_AnchorMax: {x: 0.9706436, y: 0.9480001}
-  m_AnchoredPosition: {x: 0, y: 2.8844986}
+  m_AnchoredPosition: {x: 0, y: 2.875}
   m_SizeDelta: {x: -0.000030517578, y: 5.769127}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1010099101
@@ -1013,10 +1013,6 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: text
-      value: 
-      objectReference: {fileID: 997247054}
     - target: {fileID: 6974760447211792980, guid: 25c3b35c57351d940ba1db018699832e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1059,34 +1055,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4151357203019079456, guid: 25c3b35c57351d940ba1db018699832e, type: 3}
   m_PrefabInstance: {fileID: 6974760446898194271}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6974760446898194274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6974760446898194273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e13f72f09ee9e8144bb6592dd9680497, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  screenSizeChange: {fileID: 6974760446898194272}
-  onScreenSizeChange:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6974760446898194275}
-        m_TargetAssemblyTypeName: DEMOONLY.DEMOONLY_UI, Assembly-CSharp
-        m_MethodName: ChooseText
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &6974760446898194275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1099,15 +1067,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8c8d80d57bfce544a6d1e2f41e99dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenSizeChange: {fileID: 6974760446898194272}
   text: {fileID: 997247054}
   allText:
-  - size: 1
+  - sizeVec: {x: 360, y: 250}
     text: UNIQUE FOR 360X250
-  - size: 2
+  - sizeVec: {x: 360, y: 350}
     text: UNIQUE FOR 360X350
-  - size: 4
+  - sizeVec: {x: 300, y: 300}
     text: UNIQUE FOR 300X300
-  - size: 3
+  - sizeVec: {x: 200, y: 400}
     text: UNIQUE FOR 200X400
-  - size: 0
+  - sizeVec: {x: 0, y: 0}
     text: ERROR!!
