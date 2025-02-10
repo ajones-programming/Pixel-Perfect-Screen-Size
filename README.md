@@ -1,3 +1,6 @@
+**To access core package, see Packages/com.aj_libraries.pixelperfect**
+-
+
 
 This is a simple adaptation of the Pixel Perfect camera supplied in Unity 2D.
 -
