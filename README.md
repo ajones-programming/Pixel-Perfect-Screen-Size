@@ -1,6 +1,7 @@
 **To access core package, see Packages/com.aj_libraries.pixelperfect**
 -
 
+Pixel Perfect Camera with Unity - Resize effectively, and use your own border!
 
 This is a simple adaptation of the Pixel Perfect camera supplied in Unity 2D.
 -
@@ -18,6 +19,7 @@ My Improvements
 -
 - Create multiple resolutions for the pixel viewport. This will allow Unity to choose which resolution is correct for any users screensize, choosing the biggest viewport.
 - Get rid of the black border by creating a new type of Pixel Perfect camera, which does not clear to black before drawing the viewport.
+- Allow the border around the viewport to be customisable!
 - Demonstration of UI
 - Allow other areas of the game to know what the current resolution is, and make changes if necessary
 - Create multiple cameras for the border, world view, and UI
